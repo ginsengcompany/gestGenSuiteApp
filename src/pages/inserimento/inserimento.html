@@ -1,0 +1,100 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Inserimento</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding class="no-scroll">
+  <div id="loginNotificationsCenter-container1" class="jumbotron">
+    <h6 id="loginNotificationsCenter-heading1" style="color:#000000;text-align:center;">Inserisci i dati per il tuo saldo</h6>
+  </div>
+
+  <ion-item>
+    <ion-label color="secondary">Tipo</ion-label>
+    <ion-select [(ngModel)]="tipo" placeholder="Seleziona">
+      <ion-option value="incasso">INCASSO</ion-option>
+      <ion-option value="pagamento">PAGAMENTO</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="secondary">Modalità</ion-label>
+    <ion-select [(ngModel)]="modalita" placeholder="Seleziona">
+      <ion-option value="bonifico">BONIFICO</ion-option>
+      <ion-option value="carta">CARTA DI CREDITO</ion-option>
+      <ion-option value="contanti">CONTANTI</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="secondary">Cliente</ion-label>
+    <ion-select [(ngModel)]="cliente" placeholder="Seleziona">
+      <ion-option *ngFor="let key of modeKeys" [value]="key.value">{{key.text}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <button ion-button round color="secondary" (click)="presentPrompt()">Aggiungi cliente</button>
+
+  <ion-item>
+    <ion-label color="secondary">Decrizione</ion-label>
+    <ion-textarea placeholder="Inserire Descrizione" [(ngModel)]="descrizione"></ion-textarea>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="secondary">Data</ion-label>
+    <ion-datetime displayFormat="DD-MM-YYYY HH:mm" [(ngModel)]="today"></ion-datetime>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="secondary">Inserire importo</ion-label>
+  </ion-item>
+
+    <form [formGroup]="formTest">
+
+      <ion-list>
+        <!--the selector ion-currency-mask already has an ion-item themselves-->
+        <ion-currency-mask [(ngModel)]="price"
+          placeholder="Inserire importo"
+          label="€"
+          formControlName="maskMoney">
+        </ion-currency-mask>
+      </ion-list>
+    </form>
+
+  <ion-row >
+    <ion-col>
+      <button ion-button round color="secondary" (click)="takePhoto(1);">Scatta foto</button>
+    </ion-col>
+    <ion-col>
+      <button ion-button round color="secondary" (click)="takePhoto(0);">Aggiungi foto</button>
+    </ion-col>
+  </ion-row>
+
+
+
+  <ion-row >
+    <ion-col>
+      <button ion-button round color="secondary" class="submit-btn" block (click)="salva()">Salva Saldo</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col col-4>
+
+      </ion-col>
+      <ion-col col-4>
+        <h6 ion-text>Powered by</h6>
+      </ion-col>
+      <ion-col col-4>
+        <img alt="logo" height="50"   src="../../assets/imgs/ak12.png" >
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

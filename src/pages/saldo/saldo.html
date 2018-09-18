@@ -1,0 +1,105 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Saldo</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div id="loginNotificationsCenter-container1" class="jumbotron">
+    <h6 id="loginNotificationsCenter-heading1" style="color:#000000;text-align:center;">Visualizza il tuo saldo</h6>
+  </div>
+
+  <ion-item>
+    <ion-label color="secondary">Tipo</ion-label>
+    <ion-select [(ngModel)]="tipo" placeholder="Seleziona" (ionChange)="onChangeSelection(tipo)">
+      <ion-option value="settimanale">PERIODO</ion-option>
+      <ion-option value="giornaliero">GIORNALIERO</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label color="secondary">Cliente</ion-label>
+    <ion-select [(ngModel)]="cliente" placeholder="Seleziona">
+      <ion-option *ngFor="let key of modeKeys" [value]="key.value">{{key.text}}</ion-option>
+    </ion-select>
+  </ion-item>
+
+  <div class="form-group" id="giornaliero" style="display: none">
+    <button ion-button round color="secondary" block (click)="openCalendar1()">Scegli Giorno</button>
+  </div>
+
+  <div class="form-group" id="settimanale" style="display: none">
+
+    <button ion-button round color="secondary" block (click)="openCalendar()">Scegli Settimana</button>
+
+  </div>
+
+  <h6>Prima Nota Del Giorno: {{saldDate}}</h6>
+
+  <ion-card>
+
+    <ion-card-header>
+      USCITE
+    </ion-card-header>
+
+    <ion-card-content color="danger">
+      {{"€ "+uscite}}
+    </ion-card-content>
+
+  </ion-card>
+
+  <ion-card>
+
+    <ion-card-header>
+      ENTRATE
+    </ion-card-header>
+
+    <ion-card-content color="secondary">
+      {{"€ "+entrate}}
+    </ion-card-content>
+
+  </ion-card>
+
+  <ion-card>
+
+    <ion-card-header>
+      SALDO
+    </ion-card-header>
+
+    <ion-card-content>
+      {{"€ "+saldo}}
+    </ion-card-content>
+
+  </ion-card>
+
+  <div class="form-group" id="giornaliero1" style="display: none">
+    <button ion-button round color="secondary" block (click)="openDettaglio1()">Dettaglio</button>
+  </div>
+
+  <div class="form-group" id="settimanale1" style="display: none">
+
+    <button ion-button round color="secondary" block (click)="openDettaglio()">Dettaglio</button>
+
+  </div>
+
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col col-4>
+
+      </ion-col>
+      <ion-col col-4>
+        <h6 ion-text>Powered by</h6>
+      </ion-col>
+      <ion-col col-4>
+        <img alt="logo" height="50"   src="../../assets/imgs/ak12.png" >
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>

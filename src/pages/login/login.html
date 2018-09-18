@@ -1,0 +1,56 @@
+
+<ion-content padding >
+  <ion-list>
+  <div >
+    <h1 style="color:#000000;text-align:center;">Autenticazione</h1>
+  </div>
+  <div>
+    <img src="../../assets/imgs/logo.png" style="display: block; width: 50%; height: auto; margin-left: auto; margin-right: auto;">
+  </div>
+  <div >
+      <h1 style="color:#000000;text-align:center;">GestGenSuite</h1>
+  </div>
+  </ion-list>
+  <ion-list>
+
+    <ion-item >
+      <ion-label floating>Username</ion-label>
+      <ion-input [(ngModel)]="username" type="text" value=""></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating>Password</ion-label>
+      <ion-input [(ngModel)]="password"  type="password" value=""></ion-input>
+    </ion-item>
+
+
+    <ion-item no-lines>
+      <ion-label>Amministratore</ion-label>
+      <ion-toggle checked="true" color="secondary" [(ngModel)]="admin"></ion-toggle>
+    </ion-item>
+
+
+  </ion-list>
+
+    <ion-row >
+      <ion-col>
+        <button ion-button round color="secondary" class="submit-btn" block (click)="login()">Login</button>
+      </ion-col>
+    </ion-row>
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-row>
+      <ion-col col-4>
+
+      </ion-col>
+      <ion-col col-4>
+        <h6 ion-text>Powered by</h6>
+      </ion-col>
+      <ion-col col-4>
+        <img alt="logo" height="40"   src="../../assets/imgs/ak12.png" >
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
+</ion-footer>
