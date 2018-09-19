@@ -34,7 +34,10 @@ export class InserimentoPage {
       maskMoney: ['', Validators.required]
     });
 
-    this.today = new Date().toISOString();
+    let dt = new Date();
+    dt.setHours( dt.getHours() + 2 );
+
+    this.today = dt.toISOString();
 
     this.retrievedObj = JSON.parse(localStorage.getItem('storedData'));
 
@@ -45,7 +48,7 @@ export class InserimentoPage {
 
     let data = JSON.stringify({"struttura": this.retrievedObj.struttura});
 
-    this.http.post('http://192.168.125.38:3000/cliente',data, headers)
+    this.http.post('https://gestgensuite.ak12srl.it/cliente',data, headers)
       .subscribe(data => {
           let a = JSON.stringify(data);
           let b = JSON.parse(a);
@@ -97,9 +100,9 @@ export class InserimentoPage {
     let headers = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
 
 
-    let data = JSON.stringify({"data": this.today, "tipo":this.tipo, "modalita": this.modalita, "cliente": this.cliente, "importo" : this.price, "foto" : this.foto, "utente":this.retrievedObj.username, "struttura":this.retrievedObj.struttura});
+    let data = JSON.stringify({"data": this.today, "tipo":this.tipo, "modalita": this.modalita, "cliente": this.cliente, "importo" : this.price, "foto" : this.foto,"descrizione" : this.descrizione , "utente":this.retrievedObj.username, "struttura":this.retrievedObj.struttura});
 
-    this.http.post('http://192.168.125.38:3000/salvaSaldo',data, headers)
+    this.http.post('https://gestgensuite.ak12srl.it/salvaSaldo',data, headers)
       .subscribe(data => {
           console.log(data);
           let a = JSON.stringify(data);
@@ -159,7 +162,7 @@ export class InserimentoPage {
 
               let data1 = JSON.stringify({"value": data.cliente, "struttura":this.retrievedObj.struttura});
 
-              this.http.post('http://192.168.125.38:3000/salvaCliente',data1, headers)
+              this.http.post('https://gestgensuite.ak12srl.it/salvaCliente',data1, headers)
                 .subscribe(data => {
                     console.log(data);
                     let a = JSON.stringify(data);

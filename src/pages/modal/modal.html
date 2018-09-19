@@ -21,11 +21,13 @@
   <ion-list *ngFor="let data of displayData">
   <ion-item>
     <ion-icon name="list" item-start color="secondary"></ion-icon>
-    <ion-item>{{"Data : "+ formatDate(data.data)}}</ion-item>
-    <ion-item>{{"Tipo : "+ data.tipo }}</ion-item>
-    <ion-item>{{"Modalità : " + data.modalita }}</ion-item>
-    <ion-item>{{"Cliente : " + data.cliente }}</ion-item>
-    <ion-item>{{"Importo : €"+  data.importo}}</ion-item>
+    <p>{{"Data : "+ formatDate(data.data)}}</p>
+    <p>{{"Tipo : "+ data.tipo }}</p>
+    <p>{{"Modalità : " + data.modalita }}</p>
+    <p>{{"Cliente : " + data.cliente }}</p>
+    <p>{{"Descrizione : "+  data.descrizione}}</p>
+    <p>{{"Importo : €"+  data.importo}}</p>
+    <button ion-button  color="secondary"  *ngIf="data.foto.length >20" (click)="displayImage(data.foto)">Vedi Foto</button>
   </ion-item>
   </ion-list>
 </ion-content>

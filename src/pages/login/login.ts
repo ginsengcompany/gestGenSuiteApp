@@ -31,7 +31,7 @@ export class LoginPage {
 
     let data = JSON.stringify({"username": this.username, "password":this.password, "admin": this.admin});
 
-    this.http.post('http://192.168.125.38:3000/loginApp',data, headers)
+    this.http.post('https://gestgensuite.ak12srl.it/loginApp',data, headers)
       .subscribe(data => {
           let a = JSON.stringify(data);
           let b = JSON.parse(a);

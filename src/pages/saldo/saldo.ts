@@ -44,7 +44,7 @@ export class SaldoPage {
 
     let data = JSON.stringify({"struttura": this.retrievedObj.struttura});
 
-    this.http.post('http://192.168.125.38:3000/cliente',data, headers)
+    this.http.post('https://gestgensuite.ak12srl.it/cliente',data, headers)
       .subscribe(data => {
           let a = JSON.stringify(data);
           let b = JSON.parse(a);
@@ -148,7 +148,7 @@ export class SaldoPage {
 
         let data = JSON.stringify({"data": date, "tipo":"rangecli", "struttura": this.retrievedObj.struttura, "cliente": this.cliente});
 
-        this.http.post('http://192.168.125.38:3000/getSaldo',data, headers)
+        this.http.post('https://gestgensuite.ak12srl.it/getSaldo',data, headers)
           .subscribe(data => {
               let a = JSON.stringify(data);
               let b = JSON.parse(a);
@@ -210,7 +210,7 @@ export class SaldoPage {
 
         let data = JSON.stringify({"data": date, "tipo":"range", "struttura": this.retrievedObj.struttura});
 
-        this.http.post('http://192.168.125.38:3000/getSaldo',data, headers)
+        this.http.post('https://gestgensuite.ak12srl.it/getSaldo',data, headers)
           .subscribe(data => {
               let a = JSON.stringify(data);
               let b = JSON.parse(a);
@@ -307,7 +307,7 @@ export class SaldoPage {
 
         let data = JSON.stringify({"data": date, "tipo":"giornocli", "struttura": this.retrievedObj.struttura, "cliente": this.cliente});
 
-        this.http.post('http://192.168.125.38:3000/getSaldo',data, headers)
+        this.http.post('https://gestgensuite.ak12srl.it/getSaldo',data, headers)
           .subscribe(data => {
               let a = JSON.stringify(data);
               let b = JSON.parse(a);
@@ -367,7 +367,7 @@ export class SaldoPage {
 
         let data = JSON.stringify({"data": date, "tipo":"giorno", "struttura": this.retrievedObj.struttura});
 
-        this.http.post('http://192.168.125.38:3000/getSaldo',data, headers)
+        this.http.post('https://gestgensuite.ak12srl.it/getSaldo',data, headers)
           .subscribe(data => {
               let a = JSON.stringify(data);
               let b = JSON.parse(a);

@@ -21,6 +21,7 @@ import localeItExtra from '@angular/common/locales/extra/it';
 
 import { IonCurrencyMaskModule } from '@pluritech/ion-currencymask';
 
+
 registerLocaleData(localeIt, 'it-IT', localeItExtra);
 
 

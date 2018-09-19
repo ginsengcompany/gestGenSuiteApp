@@ -40,7 +40,7 @@ export class HomePage {
 
     let data = JSON.stringify({struttura: retrievedObj.struttura});
 
-    this.http.post('http://192.168.125.38:3000/getStruttura',data, headers)
+    this.http.post('https://gestgensuite.ak12srl.it/getStruttura',data, headers)
       .subscribe(data => {
           let a = JSON.stringify(data);
           let b= JSON.parse(a);
