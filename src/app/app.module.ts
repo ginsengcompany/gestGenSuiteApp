@@ -20,6 +20,7 @@ import localeIt from '@angular/common/locales/it';
 import localeItExtra from '@angular/common/locales/extra/it';
 
 import { IonCurrencyMaskModule } from '@pluritech/ion-currencymask';
+import {ProdottiPage} from "../pages/prodotti/prodotti";
 
 
 registerLocaleData(localeIt, 'it-IT', localeItExtra);
@@ -31,6 +32,7 @@ registerLocaleData(localeIt, 'it-IT', localeItExtra);
     HomePage,
     SaldoPage,
     InserimentoPage,
+    ProdottiPage,
     LoginPage
   ],
   imports: [
@@ -47,6 +49,7 @@ registerLocaleData(localeIt, 'it-IT', localeItExtra);
     HomePage,
     SaldoPage,
     InserimentoPage,
+    ProdottiPage,
     LoginPage
   ],
   providers: [

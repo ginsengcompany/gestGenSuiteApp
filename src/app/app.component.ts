@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { SaldoPage } from '../pages/saldo/saldo';
 import { InserimentoPage } from '../pages/inserimento/inserimento';
 import { LoginPage } from "../pages/login/login";
+import {ProdottiPage} from "../pages/prodotti/prodotti";
 
 @Component({
   templateUrl: 'app.html'
@@ -27,6 +28,7 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'Saldo', component: SaldoPage },
       { title: 'Inserimento', component: InserimentoPage },
+      { title: 'Prodotti', component: ProdottiPage },
       { title: 'Log out', component: LoginPage }
     ];
 
@@ -53,6 +55,10 @@ export class MyApp {
 
     if(page.title==="Inserimento") {
       this.app.getRootNav().setRoot(InserimentoPage);
+    }
+
+    if(page.title==="Prodotti") {
+      this.app.getRootNav().setRoot(ProdottiPage);
     }
 
 
