@@ -16,6 +16,8 @@ export class LoginPage {
   username:string;
   password:string;
   admin:boolean;
+  passwordType:string = 'password';
+  passwordShown:boolean = false;
 
   constructor(public navCtrl: NavController, public menuCtrl: MenuController, public http:HttpClient, public alertCtrl: AlertController) {
 
@@ -56,6 +58,21 @@ export class LoginPage {
           console.log('Status: ' + err.status);
         });
 
+  }
+
+  togglePassword(){
+    if(this.passwordShown){
+
+      this.passwordShown = false;
+      this.passwordType = 'password';
+
+    }
+    else {
+
+      this.passwordShown = true;
+      this.passwordType = 'text';
+
+    }
   }
 
 }

@@ -14,14 +14,14 @@
 
   <ion-item>
     <ion-label color="secondary">Categoria</ion-label>
-    <ion-select [(ngModel)]="categoria" placeholder="Seleziona">
+    <ion-select [(ngModel)]="categoria" placeholder="Seleziona" (ionChange)="onChangeSelection()">
       <ion-option *ngFor="let key of modeKeys" [value]="key.id">{{key.text}}</ion-option>
     </ion-select>
   </ion-item>
 
   <ion-item>
     <ion-label color="secondary">Fornitore</ion-label>
-    <ion-select [(ngModel)]="fornitore" placeholder="Seleziona">
+    <ion-select [(ngModel)]="fornitore" placeholder="Seleziona" (ionChange)="onChangeSelection()">
       <ion-option *ngFor="let key of modeKeystwo" [value]="key.id">{{key.nome_descrizione}}</ion-option>
     </ion-select>
   </ion-item>

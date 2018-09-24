@@ -34,7 +34,7 @@ export class ProdottiPage {
 
     let data = JSON.stringify({"struttura": this.retrievedObj.struttura});
 
-    this.http.post('http://127.0.0.1:3000/categoria',data, headers)
+    this.http.post('https://gestgensuite.ak12srl.it/categoria',data, headers)
       .subscribe(data => {
           let a = JSON.stringify(data);
           let b = JSON.parse(a);
@@ -59,7 +59,7 @@ export class ProdottiPage {
           console.log('Status: ' + err.status);
         });
 
-    this.http.post('http://127.0.0.1:3000/fornitore',data, headers)
+    this.http.post('https://gestgensuite.ak12srl.it/fornitore',data, headers)
       .subscribe(data => {
           let a = JSON.stringify(data);
           let b = JSON.parse(a);
@@ -94,11 +94,15 @@ export class ProdottiPage {
 
     let data = null;
 
+    console.log("CATEGORIA: "+ this.categoria);
+
+    console.log("FORNITORE: "+ this.fornitore);
+
     if(this.categoria === "" && this.fornitore === ""){
 
       data = JSON.stringify({"tipo": "multipla", "struttura": this.retrievedObj.struttura});
 
-      this.http.post('http://127.0.0.1:3000/prodotti',data, headers)
+      this.http.post('https://gestgensuite.ak12srl.it/prodotti',data, headers)
         .subscribe(data => {
             let a = JSON.stringify(data);
             let b = JSON.parse(a);
@@ -128,11 +132,48 @@ export class ProdottiPage {
             console.log('Status: ' + err.status);
           });
     }
+    else if(this.categoria.length > 0 && this.fornitore.length > 0){
+
+      data = JSON.stringify({"tipo": "double", "struttura": this.retrievedObj.struttura, "fornitore": this.fornitore,"categoria": this.categoria});
+
+      this.http.post('https://gestgensuite.ak12srl.it/prodotti',data, headers)
+        .subscribe(data => {
+            let a = JSON.stringify(data);
+            let b = JSON.parse(a);
+            if(b.errore===false){
+              this.listaProdotti = b.id;
+
+              document.getElementById("listaProducts").style.display = "block";
+
+              this.categoria = "";
+              this.fornitore = "";
+
+            }
+            else if(b.errore===true){
+              let alert = this.alertCtrl.create({
+                title: 'Attenzione!',
+                subTitle: 'Nessun prodotto presente per questo filtro!',
+                buttons: ['OK']
+              });
+              alert.present();
+
+              this.categoria = "";
+              this.fornitore = "";
+            }
+          },
+          err => {
+            console.log(data);
+            console.log('Error: ' + err.error);
+            console.log('Name: ' + err.name);
+            console.log('Message: ' + err.message);
+            console.log('Status: ' + err.status);
+          });
+    }
     else if(this.categoria.length > 0){
 
       data = JSON.stringify({"tipo": "categoria", "struttura": this.retrievedObj.struttura,"categoria": this.categoria});
 
-      this.http.post('http://127.0.0.1:3000/prodotti',data, headers)
+      this.http.post('https://gestgensuite.ak12srl.it/prodotti',data, headers)
         .subscribe(data => {
             let a = JSON.stringify(data);
             let b = JSON.parse(a);
@@ -166,41 +207,7 @@ export class ProdottiPage {
 
       data = JSON.stringify({"tipo": "fornitore", "struttura": this.retrievedObj.struttura,"fornitore": this.fornitore});
 
-      this.http.post('http://127.0.0.1:3000/prodotti',data, headers)
-        .subscribe(data => {
-            let a = JSON.stringify(data);
-            let b = JSON.parse(a);
-            if(b.errore===false){
-              this.listaProdotti = b.id;
-
-              document.getElementById("listaProducts").style.display = "block";
-
-              this.categoria = "";
-              this.fornitore = "";
-
-            }
-            else if(b.errore===true){
-              let alert = this.alertCtrl.create({
-                title: 'Attenzione!',
-                subTitle: 'Nessun prodotto presente per questo filtro!',
-                buttons: ['OK']
-              });
-              alert.present();
-            }
-          },
-          err => {
-            console.log(data);
-            console.log('Error: ' + err.error);
-            console.log('Name: ' + err.name);
-            console.log('Message: ' + err.message);
-            console.log('Status: ' + err.status);
-          });
-    }
-    else if(this.categoria.length > 0 && this.fornitore.length > 0){
-
-      data = JSON.stringify({"tipo": "double", "struttura": this.retrievedObj.struttura, "fornitore": this.fornitore,"categoria": this.categoria});
-
-      this.http.post('http://127.0.0.1:3000/prodotti',data, headers)
+      this.http.post('https://gestgensuite.ak12srl.it/prodotti',data, headers)
         .subscribe(data => {
             let a = JSON.stringify(data);
             let b = JSON.parse(a);
@@ -270,10 +277,8 @@ export class ProdottiPage {
 
             };
 
-            this.http.post('http://127.0.0.1:3000/invioEmail',dataInvioEmail, headers)
+            this.http.post('https://gestgensuite.ak12srl.it/invioEmail',dataInvioEmail, headers)
               .subscribe(data => {
-                  let a = JSON.stringify(data);
-                  let b = JSON.parse(a);
 
                   let alert = this.alertCtrl.create({
                     title: 'Richiesta',
@@ -285,7 +290,8 @@ export class ProdottiPage {
                   this.categoria = "";
                   this.fornitore = "";
                   this.quantita="";
-                  this.listaProdotti="";
+
+                  document.getElementById("listaProducts").style.display = "none";
 
                 },
                 err => {
@@ -316,6 +322,12 @@ export class ProdottiPage {
     }
 
 
+
+  }
+
+  onChangeSelection(){
+
+    document.getElementById("listaProducts").style.display = "block";
 
   }
 

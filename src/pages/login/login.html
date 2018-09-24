@@ -20,7 +20,10 @@
 
     <ion-item>
       <ion-label floating>Password</ion-label>
-      <ion-input [(ngModel)]="password"  type="password" value=""></ion-input>
+      <ion-input [(ngModel)]="password"  [type]="passwordType" value=""></ion-input>
+      <button ion-button clear item-end (click)="togglePassword()" style="height:32px;">
+        <ion-icon name="eye" [color]="passwordShown === true ? 'secondary' : 'gray'" clearOnEdit="false" style="font-size:32px;"></ion-icon>
+      </button>
     </ion-item>
 
 

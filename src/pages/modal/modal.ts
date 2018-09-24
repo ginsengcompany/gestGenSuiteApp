@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import {IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
-import {ImageDetailsPage} from "../image-details/image-details";
 
 /**
  * Generated class for the ModalPage page.
