@@ -22,6 +22,7 @@ export class SaldoPage {
   public settimanale;
   public cliente;
   public modeKeys;
+  public sospeso;
 
   constructor(public navCtrl: NavController, public menuCtrl: MenuController, public modalCtrl: ModalController,public http:HttpClient, public alertCtrl: AlertController) {
 
@@ -30,6 +31,7 @@ export class SaldoPage {
     this.entrate=0;
     this.uscite=0;
     this.saldo=0;
+    this.sospeso=0;
     this.cliente="";
 
 
@@ -85,6 +87,7 @@ export class SaldoPage {
       this.saldo=0;
       this.saldDate ="";
       this.cliente ="";
+      this.sospeso=0;
 
     }
     else if(tipo==="giornaliero"){
@@ -97,6 +100,7 @@ export class SaldoPage {
       this.entrate=0;
       this.uscite=0;
       this.saldo=0;
+      this.sospeso=0;
 
       this.saldDate ="";
       this.cliente ="";
@@ -157,6 +161,7 @@ export class SaldoPage {
                 this.settimanale = b.id;
                 let ent = [];
                 let usc = [];
+                let sos = [];
                 for(let i=0;i<b.id.length;i++){
                   if(b.id[i].tipo==='incasso'){
 
@@ -172,18 +177,29 @@ export class SaldoPage {
 
 
                   }
+                  if(b.id[i].modalita==='sospeso' && b.id[i].tipo==='incasso'){
+
+
+
+                    sos.push(parseFloat(b.id[i].importo));
+
+
+                  }
                 }
                 this.entrate = ent.reduce((a, b) => a + b, 0);
                 this.uscite = usc.reduce((a, b) => a + b, 0);
+                this.sospeso = sos.reduce((a, b) => a + b, 0);
                 this.saldo = this.entrate - this.uscite;
                 console.log(ent);
                 console.log(usc);
+                console.log(sos);
 
               }
               else if(b.errore===true){
                 this.entrate=0;
                 this.uscite=0;
                 this.saldo=0;
+                this.sospeso=0;
                 this.giornaliero=[];
                 this.settimanale=[];
                 this.cliente="";
@@ -219,6 +235,7 @@ export class SaldoPage {
                 this.settimanale = b.id;
                 let ent = [];
                 let usc = [];
+                let sos = [];
                 for(let i=0;i<b.id.length;i++){
                   if(b.id[i].tipo==='incasso'){
 
@@ -234,18 +251,29 @@ export class SaldoPage {
 
 
                   }
+                  if(b.id[i].modalita==='sospeso' && b.id[i].tipo==='incasso'){
+
+
+
+                    sos.push(parseFloat(b.id[i].importo));
+
+
+                  }
                 }
                 this.entrate = ent.reduce((a, b) => a + b, 0);
                 this.uscite = usc.reduce((a, b) => a + b, 0);
                 this.saldo = this.entrate - this.uscite;
+                this.sospeso = sos.reduce((a, b) => a + b, 0);
                 console.log(ent);
                 console.log(usc);
+                console.log(sos);
 
               }
               else if(b.errore===true){
                 this.entrate=0;
                 this.uscite=0;
                 this.saldo=0;
+                this.sospeso=0;
                 this.giornaliero=[];
                 this.settimanale=[];
                 let alert = this.alertCtrl.create({
@@ -316,6 +344,7 @@ export class SaldoPage {
                 this.giornaliero = b.id;
                 let ent = [];
                 let usc = [];
+                let sos = [];
                 for(let i=0;i<b.id.length;i++){
                   if(b.id[i].tipo==='incasso'){
 
@@ -331,17 +360,28 @@ export class SaldoPage {
 
 
                   }
+                  if(b.id[i].modalita==='sospeso' && b.id[i].tipo==='incasso'){
+
+
+
+                    sos.push(parseFloat(b.id[i].importo));
+
+
+                  }
                 }
                 this.entrate = ent.reduce((a, b) => a + b, 0);
                 this.uscite = usc.reduce((a, b) => a + b, 0);
                 this.saldo = this.entrate - this.uscite;
+                this.sospeso = sos.reduce((a, b) => a + b, 0);
                 console.log(ent);
                 console.log(usc);
+                console.log(sos);
               }
               else if(b.errore===true){
                 this.entrate=0;
                 this.uscite=0;
                 this.saldo=0;
+                this.sospeso=0;
                 this.giornaliero=[];
                 this.settimanale=[];
                 this.cliente="";
@@ -376,6 +416,7 @@ export class SaldoPage {
                 this.giornaliero = b.id;
                 let ent = [];
                 let usc = [];
+                let sos = [];
                 for(let i=0;i<b.id.length;i++){
                   if(b.id[i].tipo==='incasso'){
 
@@ -391,17 +432,28 @@ export class SaldoPage {
 
 
                   }
+                  if(b.id[i].modalita==='sospeso' && b.id[i].tipo==='incasso'){
+
+
+
+                    sos.push(parseFloat(b.id[i].importo));
+
+
+                  }
                 }
                 this.entrate = ent.reduce((a, b) => a + b, 0);
                 this.uscite = usc.reduce((a, b) => a + b, 0);
                 this.saldo = this.entrate - this.uscite;
+                this.sospeso = sos.reduce((a, b) => a + b, 0);
                 console.log(ent);
                 console.log(usc);
+                console.log(sos);
               }
               else if(b.errore===true){
                 this.entrate=0;
                 this.uscite=0;
                 this.saldo=0;
+                this.sospeso=0;
                 this.giornaliero=[];
                 this.settimanale=[];
                 this.cliente="";

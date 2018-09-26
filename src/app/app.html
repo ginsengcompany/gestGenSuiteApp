@@ -1,18 +1,28 @@
 <ion-menu id="myMenu" [content]="content">
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <ion-content >
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)" c>
+  <ion-content>
+    <div class="menu-header">
+      <!--material-design-background-->
+      <img class="user-avatar round" style="height:90px;max-width:90px;" [src]="chosenPicture || placeholder" onerror="this.src='assets/imgs/logo.png'"
+      />
+      <p class="name">GestGenSuite</p>
+      <p class="name">Mobile Application</p>
+      <p class="e-mail">powered by ak-12 srl.</p>
+    </div>
+    <ion-list no-lines>
+      <button menuClose color="theme" ion-item detail-none *ngFor="let p of pages" (click)="openPage(p)" c>
+        <ion-icon [name]="p.icon" item-left></ion-icon>
         {{p.title}}
       </button>
     </ion-list>
   </ion-content>
 
+  <ion-footer>
+    <ion-toolbar>
+      <ion-col col-4>
+        <img alt="logo" height="50"   src="../assets/imgs/ak12.png" >
+      </ion-col>
+    </ion-toolbar>
+  </ion-footer>
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->

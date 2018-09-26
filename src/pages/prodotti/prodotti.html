@@ -1,64 +1,67 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon color="secondary" name="menu"></ion-icon>
     </button>
-    <ion-title>Prodotti</ion-title>
+    <ion-title class="masters">Prodotti</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <div id="loginNotificationsCenter-container1" class="jumbotron">
-    <h6 id="loginNotificationsCenter-heading1" style="color:#000000;text-align:center;">Inserisci la quantità prodotto per inoltro e-mail fornitore</h6>
-  </div>
 
-  <ion-item>
-    <ion-label color="secondary">Categoria</ion-label>
-    <ion-select [(ngModel)]="categoria" placeholder="Seleziona" (ionChange)="onChangeSelection()">
-      <ion-option *ngFor="let key of modeKeys" [value]="key.id">{{key.text}}</ion-option>
-    </ion-select>
-  </ion-item>
+  <ion-card>
 
-  <ion-item>
-    <ion-label color="secondary">Fornitore</ion-label>
-    <ion-select [(ngModel)]="fornitore" placeholder="Seleziona" (ionChange)="onChangeSelection()">
-      <ion-option *ngFor="let key of modeKeystwo" [value]="key.id">{{key.nome_descrizione}}</ion-option>
-    </ion-select>
-  </ion-item>
+    <ion-card-header>
+      Inserisci la quantità prodotto per inoltro e-mail fornitore
+    </ion-card-header>
 
-  <div class="form-group">
-    <button ion-button round color="secondary" block (click)="visualizza()">Visualizza Prodotti</button>
-  </div>
+    <ion-card-content>
+      <ion-item>
+        <ion-label color="secondary">Categoria</ion-label>
+        <ion-select [(ngModel)]="categoria" placeholder="Seleziona" (ionChange)="onChangeSelection()">
+          <ion-option value="">Nessuna categoria</ion-option>
+          <ion-option *ngFor="let key of modeKeys" [value]="key.id">{{key.text}}</ion-option>
+        </ion-select>
+      </ion-item>
 
-  <div class="form-group" id="listaProducts" style="display: none">
-      <ion-list *ngFor="let data of listaProdotti">
-        <ion-item>
-          <ion-icon name="albums" item-start color="secondary"></ion-icon>
-          <p>{{"Codice: "+data.codice}}</p>
-          <p>{{"Descrizione: "+data.descrizione}}</p>
-          <p>{{"Fornitore: "+data.nome_descrizione}}</p>
-        </ion-item>
-        <ion-item>
-          <ion-input type="number" [(ngModel)]="quantita" placeholder="Inserisci quantità"></ion-input>
-        </ion-item>
-        <button ion-button round color="primary" block (click)="inviaemail(data)">Invia Richiesta</button>
-      </ion-list>
-  </div>
+      <ion-item>
+        <ion-label color="secondary">Fornitore</ion-label>
+        <ion-select [(ngModel)]="fornitore" placeholder="Seleziona" (ionChange)="onChangeSelection()">
+          <ion-option value="">Nessuna fornitore</ion-option>
+          <ion-option *ngFor="let key of modeKeystwo" [value]="key.id">{{key.nome_descrizione}}</ion-option>
+        </ion-select>
+      </ion-item>
+    </ion-card-content>
+
+  </ion-card>
+
+  <ion-card>
+
+    <ion-card-content>
+
+      <div class="form-group" id="listaProducts" style="display: none">
+
+        <ion-list *ngFor="let details of newArrayList">
+          <div style="background-color:#328c0c;padding-top:10px;padding-bottom:10px;padding-left:5px;color:white">{{details[0].nome_descrizione}} </div>
+          <ion-list *ngFor="let data of details">
+            <ion-item>
+              <ion-icon name="albums" item-start color="secondary"></ion-icon>
+              <p>{{"Codice: "+data.codice}}</p>
+              <p>{{"Descrizione: "+data.descrizione}}</p>
+              <p>{{"Fornitore: "+data.nome_descrizione}}</p>
+            </ion-item>
+            <ion-item>
+              <ion-input type="number" [(ngModel)]="data.quantita" placeholder="Inserisci quantità"></ion-input>
+            </ion-item>
+          </ion-list>
+          <button ion-button round color="secondary" block (click)="inviaemail(details)">Invia Richiesta</button>
+        </ion-list>
+
+      </div>
+
+
+    </ion-card-content>
+
+  </ion-card>
 
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-    <ion-row>
-      <ion-col col-4>
-
-      </ion-col>
-      <ion-col col-4>
-        <h6 ion-text>Powered by</h6>
-      </ion-col>
-      <ion-col col-4>
-        <img alt="logo" height="50"   src="../../assets/imgs/ak12.png" >
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-</ion-footer>

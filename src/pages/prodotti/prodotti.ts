@@ -17,6 +17,7 @@ export class ProdottiPage {
   public fornitore;
   public listaProdotti;
   public quantita;
+  public newArrayList;
 
   constructor(public navCtrl: NavController, public menuCtrl: MenuController, public modalCtrl: ModalController,public http:HttpClient, public alertCtrl: AlertController, public loadingCtrl: LoadingController) {
 
@@ -84,6 +85,68 @@ export class ProdottiPage {
           console.log('Status: ' + err.status);
         });
 
+    let data1 = JSON.stringify({"tipo": "multipla", "struttura": this.retrievedObj.struttura});
+
+    this.http.post('https://gestgensuite.ak12srl.it/prodotti',data1, headers)
+      .subscribe(data => {
+          let a = JSON.stringify(data);
+          let b = JSON.parse(a);
+          if(b.errore===false){
+            this.listaProdotti = b.id;
+
+            const grouped = this.groupBy(this.listaProdotti, pet => pet.fornitore);
+
+            this.http.post('https://gestgensuite.ak12srl.it/distinctFornitori',{"struttura": this.retrievedObj.struttura}, headers)
+              .subscribe(data => {
+                  let a = JSON.stringify(data);
+                  let b = JSON.parse(a);
+                  if(b.errore===false){
+
+                    this.newArrayList = [];
+
+                    for(let i =0; i<b.id.length; i++){
+
+                      this.newArrayList.push(grouped.get(b.id[i].fornitore));
+
+                    }
+
+                  }
+                  else if(b.errore===true){
+                    let alert = this.alertCtrl.create({
+                      title: 'Attenzione!',
+                      subTitle: 'Nessuna fornitore presente!',
+                      buttons: ['OK']
+                    });
+                    alert.present();
+                  }
+                },
+                err => {
+                  console.log(data);
+                  console.log('Error: ' + err.error);
+                  console.log('Name: ' + err.name);
+                  console.log('Message: ' + err.message);
+                  console.log('Status: ' + err.status);
+                });
+
+            document.getElementById("listaProducts").style.display = "block";
+
+          }
+          else if(b.errore===true){
+            let alert = this.alertCtrl.create({
+              title: 'Attenzione!',
+              subTitle: 'Nessun prodotto presente!',
+              buttons: ['OK']
+            });
+            alert.present();
+          }
+        },
+        err => {
+          console.log(data);
+          console.log('Error: ' + err.error);
+          console.log('Name: ' + err.name);
+          console.log('Message: ' + err.message);
+          console.log('Status: ' + err.status);
+        });
   }
 
   visualizza(){
@@ -93,10 +156,6 @@ export class ProdottiPage {
     let headers = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
 
     let data = null;
-
-    console.log("CATEGORIA: "+ this.categoria);
-
-    console.log("FORNITORE: "+ this.fornitore);
 
     if(this.categoria === "" && this.fornitore === ""){
 
@@ -109,10 +168,41 @@ export class ProdottiPage {
             if(b.errore===false){
               this.listaProdotti = b.id;
 
-              document.getElementById("listaProducts").style.display = "block";
+              const grouped = this.groupBy(this.listaProdotti, pet => pet.fornitore);
 
-              this.categoria = "";
-              this.fornitore = "";
+              this.http.post('https://gestgensuite.ak12srl.it/distinctFornitori',{"struttura": this.retrievedObj.struttura}, headers)
+                .subscribe(data => {
+                    let a = JSON.stringify(data);
+                    let b = JSON.parse(a);
+                    if(b.errore===false){
+
+                      this.newArrayList = [];
+
+                      for(let i =0; i<b.id.length; i++){
+
+                        this.newArrayList.push(grouped.get(b.id[i].fornitore));
+
+                      }
+
+                    }
+                    else if(b.errore===true){
+                      let alert = this.alertCtrl.create({
+                        title: 'Attenzione!',
+                        subTitle: 'Nessuna fornitore presente!',
+                        buttons: ['OK']
+                      });
+                      alert.present();
+                    }
+                  },
+                  err => {
+                    console.log(data);
+                    console.log('Error: ' + err.error);
+                    console.log('Name: ' + err.name);
+                    console.log('Message: ' + err.message);
+                    console.log('Status: ' + err.status);
+                  });
+
+              document.getElementById("listaProducts").style.display = "block";
 
             }
             else if(b.errore===true){
@@ -131,7 +221,7 @@ export class ProdottiPage {
             console.log('Message: ' + err.message);
             console.log('Status: ' + err.status);
           });
-    }
+    } //OK
     else if(this.categoria.length > 0 && this.fornitore.length > 0){
 
       data = JSON.stringify({"tipo": "double", "struttura": this.retrievedObj.struttura, "fornitore": this.fornitore,"categoria": this.categoria});
@@ -143,10 +233,14 @@ export class ProdottiPage {
             if(b.errore===false){
               this.listaProdotti = b.id;
 
-              document.getElementById("listaProducts").style.display = "block";
+              const grouped = this.groupBy(this.listaProdotti, pet => pet.fornitore);
 
-              this.categoria = "";
-              this.fornitore = "";
+              this.newArrayList = [];
+
+              this.newArrayList.push(grouped.get(this.fornitore));
+
+
+              document.getElementById("listaProducts").style.display = "block";
 
             }
             else if(b.errore===true){
@@ -157,8 +251,6 @@ export class ProdottiPage {
               });
               alert.present();
 
-              this.categoria = "";
-              this.fornitore = "";
             }
           },
           err => {
@@ -168,7 +260,7 @@ export class ProdottiPage {
             console.log('Message: ' + err.message);
             console.log('Status: ' + err.status);
           });
-    }
+    } //OK
     else if(this.categoria.length > 0){
 
       data = JSON.stringify({"tipo": "categoria", "struttura": this.retrievedObj.struttura,"categoria": this.categoria});
@@ -180,10 +272,42 @@ export class ProdottiPage {
             if(b.errore===false){
               this.listaProdotti = b.id;
 
-              document.getElementById("listaProducts").style.display = "block";
+              const grouped = this.groupBy(this.listaProdotti, pet => pet.fornitore);
 
-              this.categoria = "";
-              this.fornitore = "";
+              this.http.post('https://gestgensuite.ak12srl.it/distinctCategoria',{"struttura": this.retrievedObj.struttura,"categoria": this.categoria}, headers)
+                .subscribe(data => {
+                    let a = JSON.stringify(data);
+                    let b = JSON.parse(a);
+                    if(b.errore===false){
+
+                      this.newArrayList = [];
+
+                      for(let i =0; i<b.id.length; i++){
+
+                        this.newArrayList.push(grouped.get(b.id[i].id));
+
+                      }
+
+                    }
+                    else if(b.errore===true){
+                      let alert = this.alertCtrl.create({
+                        title: 'Attenzione!',
+                        subTitle: 'Nessuna fornitore presente!',
+                        buttons: ['OK']
+                      });
+                      alert.present();
+                    }
+                  },
+                  err => {
+                    console.log(data);
+                    console.log('Error: ' + err.error);
+                    console.log('Name: ' + err.name);
+                    console.log('Message: ' + err.message);
+                    console.log('Status: ' + err.status);
+                  });
+
+
+              document.getElementById("listaProducts").style.display = "block";
 
             }
             else if(b.errore===true){
@@ -202,7 +326,7 @@ export class ProdottiPage {
             console.log('Message: ' + err.message);
             console.log('Status: ' + err.status);
           });
-    }
+    } //OK
     else if(this.fornitore.length > 0){
 
       data = JSON.stringify({"tipo": "fornitore", "struttura": this.retrievedObj.struttura,"fornitore": this.fornitore});
@@ -214,10 +338,14 @@ export class ProdottiPage {
             if(b.errore===false){
               this.listaProdotti = b.id;
 
+              const grouped = this.groupBy(this.listaProdotti, pet => pet.fornitore);
+
+              this.newArrayList = [];
+
+              this.newArrayList.push(grouped.get(this.fornitore));
+
               document.getElementById("listaProducts").style.display = "block";
 
-              this.categoria = "";
-              this.fornitore = "";
 
             }
             else if(b.errore===true){
@@ -236,99 +364,104 @@ export class ProdottiPage {
             console.log('Message: ' + err.message);
             console.log('Status: ' + err.status);
           });
-    }
+    } //OK
 
   }
 
   inviaemail(data){
 
-    if(this.quantita!== undefined){
+    console.log(data);
 
-      let loading = this.loadingCtrl.create({
-        spinner: 'crescent',
-        content: 'Inoltro richiesta...',
-        duration: 3000
-      });
+    let array = [];
 
-      loading.present();
+    for(let i=0; i<data.length; i++){
 
-      let headers = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
+      if(data[i].quantita!== null){
+
+        array.push(data[i]);
+
+      }
+
+    }
+
+    let loading = this.loadingCtrl.create({
+      spinner: 'crescent',
+      content: 'Inoltro richiesta...',
+      duration: 3000
+    });
+
+    loading.present();
+
+    let headers = { headers: new HttpHeaders().set('Content-Type', 'application/json') };
 
 
-      let dataPost = JSON.stringify({struttura: this.retrievedObj.struttura});
+    let dataPost = JSON.stringify({struttura: this.retrievedObj.struttura});
 
-      this.http.post('https://gestgensuite.ak12srl.it/getStruttura',dataPost, headers)
-        .subscribe(data1 => {
-            let a = JSON.stringify(data1);
-            let b = JSON.parse(a);
-            console.log(data);
-            console.log(this.retrievedObj);
-            console.log(b.id);
+    this.http.post('https://gestgensuite.ak12srl.it/getStruttura',dataPost, headers)
+      .subscribe(data1 => {
+          let a = JSON.stringify(data1);
+          let b = JSON.parse(a);
+          console.log(data);
+          console.log(this.retrievedObj);
+          console.log(b.id);
 
-            let dataInvioEmail={
-              struttura: b.id.id,
-              fornitore: data.id,
-              codice : data.codice,
-              descrizione_prodotto :data.descrizione,
-              quantita : this.quantita,
-              user_admin :this.retrievedObj.id,
-              emailFornitore: data.email,
-              emailStruttura: b.id.email
+          let dataInvioEmail={
+            struttura: b.id.id,
+            user_admin :this.retrievedObj.id,
+            emailStruttura: b.id.email,
+            array: array
 
-            };
+          };
 
-            this.http.post('https://gestgensuite.ak12srl.it/invioEmail',dataInvioEmail, headers)
-              .subscribe(data => {
+          this.http.post('https://gestgensuite.ak12srl.it/invioEmail',dataInvioEmail, headers)
+            .subscribe(data => {
 
-                  let alert = this.alertCtrl.create({
-                    title: 'Richiesta',
-                    subTitle: 'Spedita con successo!',
-                    buttons: ['OK']
-                  });
-                  alert.present();
-
-                  this.categoria = "";
-                  this.fornitore = "";
-                  this.quantita="";
-
-                  document.getElementById("listaProducts").style.display = "none";
-
-                },
-                err => {
-                  console.log('Error: ' + err.error);
-                  console.log('Name: ' + err.name);
-                  console.log('Message: ' + err.message);
-                  console.log('Status: ' + err.status);
+                let alert = this.alertCtrl.create({
+                  title: 'Richiesta',
+                  subTitle: 'Spedita con successo!',
+                  buttons: ['OK']
                 });
+                alert.present();
 
-          },
-          err => {
-            console.log('Error: ' + err.error);
-            console.log('Name: ' + err.name);
-            console.log('Message: ' + err.message);
-            console.log('Status: ' + err.status);
-          });
+                document.getElementById("listaProducts").style.display = "none";
 
-    }
-    else{
+              },
+              err => {
+                console.log('Error: ' + err.error);
+                console.log('Name: ' + err.name);
+                console.log('Message: ' + err.message);
+                console.log('Status: ' + err.status);
+              });
 
-      let alert = this.alertCtrl.create({
-        title: 'Attenzione',
-        subTitle: 'Inserire bene la quantità!',
-        buttons: ['OK']
-      });
-      alert.present();
-
-    }
-
+        },
+        err => {
+          console.log('Error: ' + err.error);
+          console.log('Name: ' + err.name);
+          console.log('Message: ' + err.message);
+          console.log('Status: ' + err.status);
+        });
 
 
   }
 
   onChangeSelection(){
 
-    document.getElementById("listaProducts").style.display = "block";
+    this.visualizza();
 
+  }
+
+  groupBy(list, keyGetter) {
+    const map = new Map();
+    list.forEach((item) => {
+      const key = keyGetter(item);
+      const collection = map.get(key);
+      if (!collection) {
+        map.set(key, [item]);
+      } else {
+        collection.push(item);
+      }
+    });
+    return map;
   }
 
 

@@ -1,55 +1,53 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar >
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon color="secondary" name="menu"></ion-icon>
     </button>
-    <ion-title>Home</ion-title>
+    <ion-title class="masters">Home</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
 
-  <ion-list>
-    <ion-list-header>
-      Benvenuto {{nome + " " + cognome}}
-    </ion-list-header>
+  <ion-card>
 
-    <p>Stai utilizzando l'applicazione per questa struttura: </p>
+    <ion-item>
+      <ion-avatar item-start>
+        <img src="../../assets/imgs/avatar.png">
+      </ion-avatar>
+      <h2>Benvenuto</h2>
+      <p>{{nome + " " + cognome}}</p>
+    </ion-item>
 
     <ion-thumbnail item-start>
       <img [src]="getImgContent()"  class="center-image">
     </ion-thumbnail>
 
-    <ion-item>
-      <ion-icon name="home" item-start color="secondary"></ion-icon>
-      <ion-label>{{nomeazz}}</ion-label>
-    </ion-item>
+    <ion-card-content>
+      <p>Stai utilizzando l'applicazione per questa struttura: </p>
+    </ion-card-content>
 
-    <ion-item>
-      <ion-icon name="locate" item-start color="secondary"></ion-icon>
-      <ion-label>{{indirizzo}}</ion-label>
-    </ion-item>
-
-    <ion-item>
-      <ion-icon name="call" item-start color="secondary"></ion-icon>
-      <ion-label>{{recapito}}</ion-label>
-    </ion-item>
-  </ion-list>
-
-</ion-content>
-
-<ion-footer>
-  <ion-toolbar>
     <ion-row>
-      <ion-col col-4>
-
+      <ion-col>
+        <button color="gray" ion-button icon-start clear small>
+          <ion-icon name="home" color="secondary"></ion-icon>
+          <div>{{nomeazz}}</div>
+        </button>
       </ion-col>
-      <ion-col col-4>
-        <h6 ion-text>Powered by</h6>
+      <ion-col>
+        <button color="gray" ion-button icon-start clear small>
+          <ion-icon name="locate" color="secondary"></ion-icon>
+          <div>{{indirizzo}}</div>
+        </button>
       </ion-col>
-      <ion-col col-4>
-        <img alt="logo" height="50"   src="../../assets/imgs/ak12.png" >
+      <ion-col>
+        <button color="gray" ion-button icon-start clear small>
+          <ion-icon name="call" color="secondary"></ion-icon>
+          <div>{{recapito}}</div>
+        </button>
       </ion-col>
     </ion-row>
-  </ion-toolbar>
-</ion-footer>
+
+  </ion-card>
+
+</ion-content>

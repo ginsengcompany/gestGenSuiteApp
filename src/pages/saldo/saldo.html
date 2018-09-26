@@ -1,16 +1,14 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon color="secondary" name="menu"></ion-icon>
     </button>
-    <ion-title>Saldo</ion-title>
+    <ion-title class="masters">Saldo</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <div id="loginNotificationsCenter-container1" class="jumbotron">
-    <h6 id="loginNotificationsCenter-heading1" style="color:#000000;text-align:center;">Visualizza il tuo saldo</h6>
-  </div>
+  <h6 class="masters" >Visualizza il tuo saldo</h6>
 
   <ion-item>
     <ion-label color="secondary">Tipo</ion-label>
@@ -37,7 +35,7 @@
 
   </div>
 
-  <h6>Prima Nota Del Giorno: {{saldDate}}</h6>
+  <h6 class="masters">Prima Nota Del Giorno: {{saldDate}}</h6>
 
   <ion-card>
 
@@ -69,8 +67,20 @@
       SALDO
     </ion-card-header>
 
-    <ion-card-content>
+    <ion-card-content color="primary">
       {{"€ "+saldo}}
+    </ion-card-content>
+
+  </ion-card>
+
+  <ion-card>
+
+    <ion-card-header>
+      INCASSO SOSPESO
+    </ion-card-header>
+
+    <ion-card-content>
+      {{"€ "+sospeso}}
     </ion-card-content>
 
   </ion-card>
@@ -87,19 +97,3 @@
 
 
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-    <ion-row>
-      <ion-col col-4>
-
-      </ion-col>
-      <ion-col col-4>
-        <h6 ion-text>Powered by</h6>
-      </ion-col>
-      <ion-col col-4>
-        <img alt="logo" height="50"   src="../../assets/imgs/ak12.png" >
-      </ion-col>
-    </ion-row>
-  </ion-toolbar>
-</ion-footer>

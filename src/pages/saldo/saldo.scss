@@ -1,32 +1,21 @@
 page-saldo {
 
-
-  .demo-non-form {
-    color: initial;
-    width: 100%;
-    padding: 10px;
-    margin: 6px 0 12px 0;
-    border: 1px solid #ccc;
-    border-radius: 0;
-    font-family: arial, verdana, sans-serif;
-    font-size: 14px;
-    box-sizing: border-box;
-    -webkit-appearance: none;
+  .masters {
+    background-color: #bbff93;
   }
 
-  .demo-container {
-    padding: 0 1em;
+  .mastersTrasparent {
+    background-color: transparent;
   }
 
-  .external-container {
-    display: flex;
+  ion-content {
+    background-image: url('../../assets/imgs/screen.jpg');
+    background-size:cover;
   }
 
-  .external-container button.external-button {
-    font-weight: 400;
-    padding: 10px;
-    margin: 6px 0 12px 16px;
+  .toolbar-background-md {
+    border-color: #b2b2b2;
+    background: #bbff93;
   }
-
 
 }
