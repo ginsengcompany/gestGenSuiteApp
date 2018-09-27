@@ -12,8 +12,10 @@
 
 <ion-content padding>
 
+  <!--[color]="data.tipo!= 'incasso' ? 'danger' : 'secondary'"-->
+
   <ion-list *ngFor="let data of displayData">
-  <ion-item [color]="data.tipo!= 'incasso' ? 'danger' : 'secondary'">
+  <ion-item [ngClass]="data.tipo">
     <ion-icon name="list" item-start color="secondary"></ion-icon>
     <p>{{"Data : "+ formatDate(data.data)}}</p>
     <p>{{"Tipo : "+ data.tipo }}</p>
@@ -21,7 +23,7 @@
     <p>{{"Cliente : " + data.cliente }}</p>
     <p>{{"Descrizione : "+  data.descrizione}}</p>
     <p>{{"Importo : €"+  data.importo}}</p>
-    <button ion-button  color="primary"  *ngIf="data.foto.length >20" (click)="displayImage(data.foto)">Vedi Foto</button>
+    <button ion-button  color="secondary"  *ngIf="data.foto.length >20" (click)="displayImage(data.foto)">Vedi Foto</button>
   </ion-item>
   </ion-list>
 </ion-content>
