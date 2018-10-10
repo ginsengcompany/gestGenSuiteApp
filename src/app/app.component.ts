@@ -27,7 +27,7 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage, icon: 'home'},
       { title: 'Saldo', component: SaldoPage, icon: 'logo-usd'},
-      { title: 'Inserimento', component: InserimentoPage , icon: 'archive'},
+      { title: 'Movimenti', component: InserimentoPage , icon: 'archive'},
       { title: 'Prodotti', component: ProdottiPage, icon: 'logo-buffer'},
       { title: 'Log out', component: LoginPage, icon: 'exit'}
     ];
@@ -53,7 +53,7 @@ export class MyApp {
       this.app.getRootNav().setRoot(HomePage);
     }
 
-    if(page.title==="Inserimento") {
+    if(page.title==="Movimenti") {
       this.app.getRootNav().setRoot(InserimentoPage);
     }
 

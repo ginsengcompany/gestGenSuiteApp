@@ -3,7 +3,7 @@
     <button ion-button menuToggle>
       <ion-icon color="secondary" name="menu"></ion-icon>
     </button>
-    <ion-title class="masters">Inserimento</ion-title>
+    <ion-title class="masters">Movimenti</ion-title>
   </ion-navbar>
 </ion-header>
 
@@ -12,7 +12,7 @@
   <ion-card>
 
     <ion-card-header>
-      Inserisci i dati per il tuo saldo
+      Inserisci i dati per il tuo Movimento
     </ion-card-header>
 
     <ion-card-content>
@@ -27,6 +27,7 @@
       <ion-item>
         <ion-label color="secondary">Modalità</ion-label>
         <ion-select [(ngModel)]="modalita" placeholder="Seleziona">
+          <ion-option value="assegno">ASSEGNO</ion-option>
           <ion-option value="bonifico">BONIFICO</ion-option>
           <ion-option value="carta">CARTA DI CREDITO</ion-option>
           <ion-option value="contanti">CONTANTI</ion-option>
@@ -94,7 +95,7 @@
 
   <ion-row >
     <ion-col>
-      <button ion-button round color="secondary" class="submit-btn" block (click)="salva()">Salva Saldo</button>
+      <button ion-button round color="secondary" class="submit-btn" block (click)="salva()">Salva Movimento</button>
     </ion-col>
   </ion-row>
 

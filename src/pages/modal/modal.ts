@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
+import {AlertController, IonicPage, ModalController, NavController, NavParams, ViewController} from 'ionic-angular';
 import {DomSanitizer, SafeUrl} from "@angular/platform-browser";
 
 /**
@@ -20,7 +20,7 @@ export class ModalPage {
   public displayData;
   public imgUrl;
 
-  constructor(public navCtrl: NavController, public viewCtrl : ViewController ,public navParams: NavParams,private sanitizer: DomSanitizer,public modalCtrl: ModalController){
+  constructor(public navCtrl: NavController, public viewCtrl : ViewController ,public navParams: NavParams,private sanitizer: DomSanitizer,public modalCtrl: ModalController, public alertCtrl: AlertController){
 
 
   }
@@ -33,10 +33,23 @@ export class ModalPage {
     console.log('ionViewDidLoad ModalPage');
     this.title = this.navParams.get('message');
     console.log(this.navParams.get('array'));
-    let stringifiedData = JSON.stringify(this.navParams.get('array'));
-    let parsedData = JSON.parse(stringifiedData);
 
-    this.displayData = parsedData;
+    if(this.navParams.get('array')=== undefined){
+
+      let alert = this.alertCtrl.create({
+        title: 'Attenzione!',
+        subTitle: 'Selezionare prima una Giornata o un Periodo per visualizzare il Dettaglio!',
+        buttons: ['OK']
+      });
+      alert.present();
+
+    }
+    else{
+      let stringifiedData = JSON.stringify(this.navParams.get('array'));
+      let parsedData = JSON.parse(stringifiedData);
+
+      this.displayData = parsedData;
+    }
 
   }
 

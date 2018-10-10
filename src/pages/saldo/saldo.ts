@@ -23,6 +23,7 @@ export class SaldoPage {
   public cliente;
   public modeKeys;
   public sospeso;
+  public sospesoPag;
 
   constructor(public navCtrl: NavController, public menuCtrl: MenuController, public modalCtrl: ModalController,public http:HttpClient, public alertCtrl: AlertController) {
 
@@ -32,6 +33,7 @@ export class SaldoPage {
     this.uscite=0;
     this.saldo=0;
     this.sospeso=0;
+    this.sospesoPag=0;
     this.cliente="";
 
 
@@ -88,6 +90,7 @@ export class SaldoPage {
       this.saldDate ="";
       this.cliente ="";
       this.sospeso=0;
+      this.sospesoPag=0;
 
     }
     else if(tipo==="giornaliero"){
@@ -101,6 +104,7 @@ export class SaldoPage {
       this.uscite=0;
       this.saldo=0;
       this.sospeso=0;
+      this.sospesoPag=0;
 
       this.saldDate ="";
       this.cliente ="";
@@ -117,6 +121,8 @@ export class SaldoPage {
       monthFormat: 'MMMM YYYY',
       weekdays: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
       weekStart: 1,
+      doneLabel: 'FATTO',
+      closeLabel: 'CANCELLA',
       defaultDate: new Date(),
       canBackwardsSelected: true
     };
@@ -162,14 +168,15 @@ export class SaldoPage {
                 let ent = [];
                 let usc = [];
                 let sos = [];
+                let sosp = [];
                 for(let i=0;i<b.id.length;i++){
-                  if(b.id[i].tipo==='incasso'){
+                  if(b.id[i].tipo==='incasso' && b.id[i].modalita!=='sospeso'){
 
 
                     ent.push(parseFloat(b.id[i].importo));
 
                   }
-                  if(b.id[i].tipo==='pagamento'){
+                  if(b.id[i].tipo==='pagamento' && b.id[i].modalita!=='sospeso'){
 
 
 
@@ -185,14 +192,24 @@ export class SaldoPage {
 
 
                   }
+                  if(b.id[i].modalita==='sospeso' && b.id[i].tipo==='pagamento'){
+
+
+
+                    sosp.push(parseFloat(b.id[i].importo));
+
+
+                  }
                 }
                 this.entrate = ent.reduce((a, b) => a + b, 0);
                 this.uscite = usc.reduce((a, b) => a + b, 0);
                 this.sospeso = sos.reduce((a, b) => a + b, 0);
+                this.sospesoPag = sosp.reduce((a, b) => a + b, 0);
                 this.saldo = this.entrate - this.uscite;
                 console.log(ent);
                 console.log(usc);
                 console.log(sos);
+                console.log(sosp);
 
               }
               else if(b.errore===true){
@@ -200,6 +217,7 @@ export class SaldoPage {
                 this.uscite=0;
                 this.saldo=0;
                 this.sospeso=0;
+                this.sospesoPag=0;
                 this.giornaliero=[];
                 this.settimanale=[];
                 this.cliente="";
@@ -236,14 +254,15 @@ export class SaldoPage {
                 let ent = [];
                 let usc = [];
                 let sos = [];
+                let sosp = [];
                 for(let i=0;i<b.id.length;i++){
-                  if(b.id[i].tipo==='incasso'){
+                  if(b.id[i].tipo==='incasso' && b.id[i].modalita!=='sospeso'){
 
 
                     ent.push(parseFloat(b.id[i].importo));
 
                   }
-                  if(b.id[i].tipo==='pagamento'){
+                  if(b.id[i].tipo==='pagamento' && b.id[i].modalita!=='sospeso'){
 
 
 
@@ -259,14 +278,24 @@ export class SaldoPage {
 
 
                   }
+                  if(b.id[i].modalita==='sospeso' && b.id[i].tipo==='pagamento'){
+
+
+
+                    sosp.push(parseFloat(b.id[i].importo));
+
+
+                  }
                 }
                 this.entrate = ent.reduce((a, b) => a + b, 0);
                 this.uscite = usc.reduce((a, b) => a + b, 0);
                 this.saldo = this.entrate - this.uscite;
                 this.sospeso = sos.reduce((a, b) => a + b, 0);
+                this.sospesoPag = sosp.reduce((a, b) => a + b, 0);
                 console.log(ent);
                 console.log(usc);
                 console.log(sos);
+                console.log(sosp);
 
               }
               else if(b.errore===true){
@@ -274,6 +303,7 @@ export class SaldoPage {
                 this.uscite=0;
                 this.saldo=0;
                 this.sospeso=0;
+                this.sospesoPag=0;
                 this.giornaliero=[];
                 this.settimanale=[];
                 let alert = this.alertCtrl.create({
@@ -306,6 +336,8 @@ export class SaldoPage {
       weekdays: ['Lun', 'Mar', 'Mer', 'Gio', 'Ven', 'Sab', 'Dom'],
       weekStart: 1,
       defaultDate: new Date(),
+      doneLabel: 'FATTO',
+      closeLabel: 'CANCELLA',
       canBackwardsSelected: true
     };
     let myCalendar =  this.modalCtrl.create(CalendarModal, {
@@ -345,14 +377,15 @@ export class SaldoPage {
                 let ent = [];
                 let usc = [];
                 let sos = [];
+                let sosp = [];
                 for(let i=0;i<b.id.length;i++){
-                  if(b.id[i].tipo==='incasso'){
+                  if(b.id[i].tipo==='incasso' && b.id[i].modalita!=='sospeso'){
 
 
                     ent.push(parseFloat(b.id[i].importo));
 
                   }
-                  if(b.id[i].tipo==='pagamento'){
+                  if(b.id[i].tipo==='pagamento' && b.id[i].modalita!=='sospeso'){
 
 
 
@@ -368,20 +401,31 @@ export class SaldoPage {
 
 
                   }
+                  if(b.id[i].modalita==='sospeso' && b.id[i].tipo==='pagamento'){
+
+
+
+                    sosp.push(parseFloat(b.id[i].importo));
+
+
+                  }
                 }
                 this.entrate = ent.reduce((a, b) => a + b, 0);
                 this.uscite = usc.reduce((a, b) => a + b, 0);
                 this.saldo = this.entrate - this.uscite;
                 this.sospeso = sos.reduce((a, b) => a + b, 0);
+                this.sospesoPag = sosp.reduce((a, b) => a + b, 0);
                 console.log(ent);
                 console.log(usc);
                 console.log(sos);
+                console.log(sosp);
               }
               else if(b.errore===true){
                 this.entrate=0;
                 this.uscite=0;
                 this.saldo=0;
                 this.sospeso=0;
+                this.sospesoPag=0;
                 this.giornaliero=[];
                 this.settimanale=[];
                 this.cliente="";
@@ -417,14 +461,15 @@ export class SaldoPage {
                 let ent = [];
                 let usc = [];
                 let sos = [];
+                let sosp = [];
                 for(let i=0;i<b.id.length;i++){
-                  if(b.id[i].tipo==='incasso'){
+                  if(b.id[i].tipo==='incasso' && b.id[i].modalita!=='sospeso'){
 
 
                     ent.push(parseFloat(b.id[i].importo));
 
                   }
-                  if(b.id[i].tipo==='pagamento'){
+                  if(b.id[i].tipo==='pagamento' && b.id[i].modalita!=='sospeso'){
 
 
 
@@ -440,20 +485,31 @@ export class SaldoPage {
 
 
                   }
+                  if(b.id[i].modalita==='sospeso' && b.id[i].tipo==='pagamento'){
+
+
+
+                    sosp.push(parseFloat(b.id[i].importo));
+
+
+                  }
                 }
                 this.entrate = ent.reduce((a, b) => a + b, 0);
                 this.uscite = usc.reduce((a, b) => a + b, 0);
                 this.saldo = this.entrate - this.uscite;
                 this.sospeso = sos.reduce((a, b) => a + b, 0);
+                this.sospesoPag = sosp.reduce((a, b) => a + b, 0);
                 console.log(ent);
                 console.log(usc);
                 console.log(sos);
+                console.log(sosp);
               }
               else if(b.errore===true){
                 this.entrate=0;
                 this.uscite=0;
                 this.saldo=0;
                 this.sospeso=0;
+                this.sospesoPag=0;
                 this.giornaliero=[];
                 this.settimanale=[];
                 this.cliente="";

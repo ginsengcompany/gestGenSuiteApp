@@ -15,15 +15,8 @@ import { LoginPage } from "../pages/login/login";
 import { HttpClientModule } from "@angular/common/http";
 import {Camera} from "@ionic-native/camera";
 
-import { registerLocaleData } from '@angular/common';
-import localeIt from '@angular/common/locales/it';
-import localeItExtra from '@angular/common/locales/extra/it';
-
 import { IonCurrencyMaskModule } from '@pluritech/ion-currencymask';
 import {ProdottiPage} from "../pages/prodotti/prodotti";
-
-
-registerLocaleData(localeIt, 'it-IT', localeItExtra);
 
 
 @NgModule({
@@ -56,8 +49,8 @@ registerLocaleData(localeIt, 'it-IT', localeItExtra);
     StatusBar,
     SplashScreen,
     Camera,
+    {provide: LOCALE_ID, useValue: "it-IT" },
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    { provide: LOCALE_ID, useValue: "it-IT" }
   ]
 })
 export class AppModule {}
