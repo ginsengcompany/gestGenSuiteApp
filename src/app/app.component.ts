@@ -27,9 +27,9 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage, icon: 'home'},
       { title: 'Saldo', component: SaldoPage, icon: 'logo-usd'},
-      { title: 'Movimenti', component: InserimentoPage , icon: 'archive'},
-      { title: 'Prodotti', component: ProdottiPage, icon: 'logo-buffer'},
-      { title: 'Log out', component: LoginPage, icon: 'exit'}
+      { title: 'Movimenti', component: InserimentoPage , icon: 'clipboard'},
+      { title: 'Prodotti', component: ProdottiPage, icon: 'restaurant'},
+      { title: 'Log out', component: LoginPage, icon: 'log-out'}
     ];
 
   }

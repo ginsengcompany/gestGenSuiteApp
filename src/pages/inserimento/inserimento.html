@@ -35,18 +35,24 @@
         </ion-select>
       </ion-item>
 
-      <ion-item>
-        <ion-label color="secondary">Cliente</ion-label>
-        <ion-select [(ngModel)]="cliente" placeholder="Seleziona">
-          <ion-option *ngFor="let key of modeKeys" [value]="key.value">{{key.text}}</ion-option>
-        </ion-select>
-      </ion-item>
+      <ion-row >
+        <ion-col>
+          <ion-item>
+            <ion-label color="secondary">Cliente</ion-label>
+            <ion-select [(ngModel)]="cliente" placeholder="Seleziona">
+              <ion-option *ngFor="let key of modeKeys" [value]="key.value">{{key.text}}</ion-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <button ion-button round color="secondary" (click)="presentPrompt()">Aggiungi cliente</button>
+        </ion-col>
+      </ion-row>
+
+
     </ion-card-content>
 
   </ion-card>
-
-  <button ion-button round color="secondary" (click)="presentPrompt()">Aggiungi cliente</button>
-
 
   <ion-card>
 

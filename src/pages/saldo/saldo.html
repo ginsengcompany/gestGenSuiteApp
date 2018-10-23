@@ -56,7 +56,7 @@
 
       <ion-card>
 
-        <ion-card-header style="font-size:13px">
+        <ion-card-header>
           SALDO
         </ion-card-header>
 
@@ -70,11 +70,11 @@
         Movimenti:
       </ion-card-header>
 
-      <ion-row style="flex-wrap: nowrap">
-        <ion-col>
+      <ion-slides autoplay="2500" loop="true" speed="500" >
+        <ion-slide>
           <ion-card>
 
-            <ion-card-header style="font-size:13px">
+            <ion-card-header>
               INCASSI
             </ion-card-header>
 
@@ -83,12 +83,12 @@
             </ion-card-content>
 
           </ion-card>
-        </ion-col>
-        <ion-col>
+        </ion-slide>
+        <ion-slide>
           <ion-card>
 
-            <ion-card-header style="font-size:13px">
-              IN SOSPESO
+            <ion-card-header>
+              INCASSI IN SOSPESO
             </ion-card-header>
 
             <ion-card-content color="secondary">
@@ -96,14 +96,14 @@
             </ion-card-content>
 
           </ion-card>
-        </ion-col>
-      </ion-row>
+        </ion-slide>
+      </ion-slides>
 
-      <ion-row style="flex-wrap: nowrap">
-        <ion-col>
+      <ion-slides autoplay="2500" loop="true" speed="500">
+        <ion-slide>
           <ion-card>
 
-            <ion-card-header style="font-size:13px">
+            <ion-card-header>
               PAGAMENTI
             </ion-card-header>
 
@@ -112,12 +112,12 @@
             </ion-card-content>
 
           </ion-card>
-        </ion-col>
-        <ion-col>
+        </ion-slide>
+        <ion-slide>
           <ion-card>
 
-            <ion-card-header style="font-size:13px">
-              IN SOSPESO
+            <ion-card-header>
+              PAGAMENTI IN SOSPESO
             </ion-card-header>
 
             <ion-card-content color="danger">
@@ -125,8 +125,8 @@
             </ion-card-content>
 
           </ion-card>
-        </ion-col>
-      </ion-row>
+        </ion-slide>
+      </ion-slides>
 
       <div class="form-group" id="giornaliero1" style="display: none">
 

@@ -8,12 +8,11 @@
       <p class="name">Mobile Application</p>
       <p class="e-mail">powered by ak-12 srl.</p>
     </div>
-    <ion-list no-lines>
-      <button menuClose color="theme" ion-item detail-none *ngFor="let p of pages" (click)="openPage(p)" c>
+      <button menuClose color="theme" ion-item detail-none *ngFor="let p of pages" (click)="openPage(p)">
         <ion-icon [name]="p.icon" item-left></ion-icon>
         {{p.title}}
+        <br>
       </button>
-    </ion-list>
   </ion-content>
 
   <ion-footer>
